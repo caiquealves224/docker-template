@@ -33,10 +33,29 @@
         <script>
             const API = 'http://localhost:3000';
 
+            const createButton = (label, type) => {
+                $('<button>').addClass(`btn btn-${type}`).html(label);
+            };
+
+            const renderRows = clients => {
+                const rows = clients.map(client => {
+                    const updateButton = createButton('Atualizar', 'warn');
+                    const removeButton = createButton('Excluir', 'danger');
+
+                    return $('<tr>')
+                        .append($('<td>').append(client.name))
+                        .append($('<td>').append(updateButton).append(removeButton))
+                });
+
+                $('#clientsRows').html(rows);
+            };
+
             const getClients = () => {
                 $.ajax({
                     url: `${API}/clients`,
-                    success: clients => console.log(clients)
+                    success: clients => {
+                        renderRows(clients);
+                    }
                 })
             };
 
