@@ -40,8 +40,9 @@
             const renderRows = clients => {
                 const rows = clients.map(client => {
                     const updateButton = createButton('Atualizar', 'warning');
-                    const removeButton = createButton('Excluir', 'danger');
+                    updateButton.click(() => loadClient(client));
 
+                    const removeButton = createButton('Excluir', 'danger');
                     removeButton.click(() => removeClient(client));
 
                     return $('<tr>')
@@ -51,6 +52,11 @@
 
                 $('#clientsRows').html(rows);
             };
+
+            const loadClient = client => {
+                $('[name=id]').val(client._id);
+                $('[name=name]').val(client.name);
+            }
 
             const removeClient = client => {
                 $.ajax({
