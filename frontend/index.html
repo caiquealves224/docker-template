@@ -71,6 +71,7 @@
                     url: `${API}/clients`,
                     success: clients => {
                         renderRows(clients);
+                        $('[name]').val('');
                     }
                 })
             };
